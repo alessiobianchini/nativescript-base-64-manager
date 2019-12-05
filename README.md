@@ -1,7 +1,7 @@
 # Base 64 Manager
 ## nativescript-base-64-manager
 
-Add your plugin badges here. See [nativescript-urlhandler](https://github.com/hypery2k/nativescript-urlhandler) for example.
+https://github.com/alessiobianchini/nativescript-base-64-manager
 
 This plugin offers the standards atob and btoa javascript functions for Android and iOS. 
 
@@ -17,8 +17,9 @@ tns plugin add nativescript-base-64-manager
 import { Base64Manager } from 'nativescript-base-64-manager';
 
 const base64String = "QmFzZSA2NCBNYW5hZ2VyIGlzIHdvcmtpbmchIQ=="
-console.log(Base64Manager.btoa(base64String));
-
 const standardString = "Base 64 Manager is working!!"
-console.log(Base64Manager.atob(standardString));
+const _base64Manager = new Base64Manager();
+
+console.log(standardString + " -> btoa -> " + _base64Manager.btoa(standardString));
+console.log(base64String + " -> atob -> " + _base64Manager.atob(base64String));
 ```

@@ -1,10 +1,11 @@
 import { Base64Manager } from 'nativescript-base-64-manager';
 
 const base64String = "QmFzZSA2NCBNYW5hZ2VyIGlzIHdvcmtpbmchIQ=="
-console.log(Base64Manager.btoa(base64String));
-
 const standardString = "Base 64 Manager is working!!"
-console.log(Base64Manager.atob(standardString));
+const _base64Manager = new Base64Manager();
+
+console.log(standardString + " -> btoa -> " + _base64Manager.btoa(standardString));
+console.log(base64String + " -> atob -> " + _base64Manager.atob(base64String));
 
 /*
 In NativeScript, a file with the same name as an XML file is known as
