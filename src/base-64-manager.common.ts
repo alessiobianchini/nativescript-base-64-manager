@@ -1,28 +1,44 @@
 import { Observable } from 'tns-core-modules/data/observable';
 import * as app from 'tns-core-modules/application';
 import * as dialogs from 'tns-core-modules/ui/dialogs';
+import { isIOS } from '@nativescript/core/ui/page/page';
+
+declare var NSString: any;
+declare var NSData: any;
+declare var NSUTF8StringEncoding: any;
+declare var java: any;
+declare var android: any;
 
 export class Common extends Observable {
   public message: string;
 
   constructor() {
     super();
-    this.message = Utils.SUCCESS_MSG();
   }
 
-  public greet() {
-    return "Hello, NS";
+  public btoa(inputString: string) {
+    if (isIOS) {
+      const text = NSString.stringWithString(inputString);
+      const data = text.dataUsingEncoding(NSUTF8StringEncoding);
+
+      return data.base64EncodedStringWithOptions(0);
+    } else {
+      const text = new java.lang.String(inputString);
+      const data = text.getBytes("UTF-8");
+
+      return android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT);
+    }
   }
-}
 
-export class Utils {
-  public static SUCCESS_MSG(): string {
-    let msg = `Your plugin is working on ${app.android ? 'Android' : 'iOS'}.`;
+  public atob(base64string: string) {
+    if (isIOS) {
+      const decodedData = NSData.alloc().initWithBase64EncodedStringOptions(base64string, 0);
 
-    setTimeout(() => {
-      dialogs.alert(`${msg} For real. It's really working :)`).then(() => console.log(`Dialog closed.`));
-    }, 2000);
+      return NSString.alloc().initWithDataEncoding(decodedData, NSUTF8StringEncoding);
+    } else {
+      const decodedString = android.util.Base64.decode(base64string, android.util.Base64.DEFAULT);
 
-    return msg;
+      return decodeURI(new java.lang.String(decodedString));
+    }
   }
 }
