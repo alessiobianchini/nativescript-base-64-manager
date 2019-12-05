@@ -1,7 +1,7 @@
 {
 	"name": "nativescript-base-64-manager",
 	"version": "1.0.0",
-	"description": "Your awesome NativeScript plugin.",
+	"description": "atob and btoa functions for NativeScript",
 	"main": "base-64-manager",
 	"typings": "index.d.ts",
 	"nativescript": {
